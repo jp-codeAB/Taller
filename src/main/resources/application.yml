@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: msvc-items
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/taller_spring
+    username: postgres
+    password: 100juanU
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8080
+
+inventory:
+  service:
+    url: http://localhost:8084
+
+

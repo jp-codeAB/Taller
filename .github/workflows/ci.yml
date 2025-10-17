@@ -1,0 +1,42 @@
+name: CI
+
+on:
+    push:
+       branches: ["main"]
+    pull_request:
+       branches: ["main"]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        services:
+            postgres:
+                image: postgres:15
+                env:
+                    POSTGRES_USER: postgres
+                    POSTGRES_PASSWORD: 100juanU
+                    POSTGRES_DB:  demo
+                ports:
+                  - 5432:5432
+                options:
+                    --heald-cmd+"pg_isready -U postgres"
+                    --heald-interval=10s
+                    --heald-timeout=5s
+                    --heald-retries=5
+        steps:
+           - name: Checkout repository
+             uses: actions/checkout@v4
+           - name: Set up JDK 21
+             uses: actions/setup-java@v4
+             with:
+               java-version: '21'
+               destribution: 'temurin'
+               cache: 'maven'
+           - name: Grant execute permission for maven
+             run: chmod +x mvnw
+           - name: Build and run test
+             env:
+               SPRIN_DATASOURCE_URL: jdbc:postgresql://localhost:5432/taller_spring
+               SPRIN_DATASOURCE_USERNAME: postgres
+               SPRIN_DATASOURCE_PASSWORD: 100juanU
+             run: ./mvnw clean build --no-daemon
