@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TallerController {
     @GetMapping()
     public String home() {
-        return "Spring Boot en EC2 con PostgreSQL funcionando correctamente";
+        return "Spring Boot and git";
     }
 }
