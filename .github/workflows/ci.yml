@@ -33,12 +33,12 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-          cache: 'mvn'
-      - name: Grant execute permission for Gradle
+          cache: 'maven'
+      - name: Grant execute permission for Maven
         run: chmod +x mvnw
       - name: Build and run test
         env:
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/taller_spring
           SPRING_DATASOURCE_USERNAME: postgres
           SPRING_DATASOURCE_PASSWORD: 100juanU
-        run: ./mvnw clean build --no-daemon
+        run: ./mvnw clean install --no-transfer-progress
